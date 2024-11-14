@@ -1,0 +1,88 @@
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-btn {
+    height: 3rem;
+    width: 8.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: #fff;
+    border: none;
+    color: #000;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-btn:hover {
+    background-color: rgba(215, 215, 215, 0.5);
+}
+
+.dropdown {
+    position: absolute;
+    max-height: 0;
+    height: fit-content;
+    width: 100%;
+    bottom: 100%;
+    left: 0;
+    z-index: 1;
+    background-color: #ededed;
+    border-radius: 6.5px;
+    box-shadow: 0 5px 30px #cfcfcf;
+    margin-bottom: 0.25rem;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+}
+
+.dropdown.open {
+    max-height: min(50svh, calc(3rem * var(--max-height-value)));
+    overflow: scroll;
+}
+
+.dropdown-wrapper {
+    padding: 0.5rem;
+}
+
+.dropdown-wrapper label p {
+    width: 100%;
+    text-indent: 0.4rem;
+    text-align: start;
+    padding: 0.6rem 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.dropdown-wrapper label:not(:last-child) p {
+    border-bottom: 1px solid #656565;
+}
+
+.dropdown-wrapper label p:hover {
+    border-radius: 3.5px;
+    background-color: #cfcfcf;
+}
+
+.dropdown-wrapper label input {
+    display: none;
+}
+
+@media (pointer: coarse) {
+    .dropdown-btn:hover {
+        background-color: transparent;
+    }
+
+    .dropdown-btn:active {
+        background-color: rgba(215, 215, 215, 0.5);
+    }
+
+    .dropdown-wrapper label p:hover {
+        background-color: transparent;
+    }
+
+    .dropdown-wrapper label p:active {
+        background-color: #cfcfcf;
+    }
+}

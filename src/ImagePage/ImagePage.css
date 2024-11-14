@@ -1,0 +1,184 @@
+.image-page-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding-top: 2rem;
+}
+
+.image-page-container>label {
+    margin-top: auto;
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    padding-inline: 1rem;
+    background-color: black;
+    color: #fff;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.image-page-container>label:hover {
+    background-color: #353535;
+}
+
+.image-page-container>label:active {
+    transform: scale(0.95);
+}
+
+.image-page-container>label input {
+    display: none;
+}
+
+.stop-div {
+    border-radius: 50%;
+    position: relative;
+}
+
+.stop-div>svg {
+    fill: red;
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: top left;
+    z-index: -1;
+    animation: rotation infinite 10s linear forwards;
+}
+
+@keyframes rotation {
+
+    100% {
+        rotate: 360deg;
+    }
+}
+
+.image-page-container .stop-btn {
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: #ff0000;
+    box-shadow: 0 0 30px rgb(255, 0, 0, 0.75);
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.image-page-container .stop-btn:hover {
+    background-color: #ff3333;
+}
+
+.image-page-container .stop-div:has(.stop-btn:hover)>svg {
+    fill: #ff3333;
+}
+
+.image-page-container .stop-btn:active {
+    transform: scale(0.95);
+}
+
+.image-page-container .translate-textbox {
+    width: 100%;
+    height: 22rem;
+    max-height: 30rem;
+    flex-grow: 1;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 1rem;
+    padding-bottom: 3rem;
+    font-weight: 500;
+    position: relative;
+}
+
+.image-page-container .translate-textbox>div {
+    height: 100%;
+    font-size: 1.1rem;
+    font-weight: 400;
+    overflow-y: scroll;
+}
+
+.image-page-container .translate-textbox>svg {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    color: #000;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+}
+
+.image-page-container .translate-textbox>svg:last-child {
+    left: 3rem;
+    font-size: 1.1rem;
+}
+
+.image-page-container .translate-textbox>svg:hover {
+    transform: scale(1.1);
+}
+
+.image-page-container .translate-textbox>svg:active {
+    transform: scale(0.9);
+}
+
+.image-page-container .translate-textbox>svg.speaking {
+    background-color: #000;
+    color: #fff;
+    border-radius: 50%;
+    height: 1.5rem;
+    width: 1.5rem;
+    pointer-events: none;
+}
+
+.image-page-container .image-lang {
+    margin-top: auto;
+}
+
+.image-page-container .image-lang .dropdown {
+    bottom: unset;
+    top: 100%;
+}
+
+@media (pointer: coarse) {
+    .image-page-container>label:hover {
+        background-color: #000;
+    }
+
+    .image-page-container>label:active {
+        background-color: #353535;
+        transform: scale(0.95);
+    }
+
+    .image-page-container .stop-btn:hover {
+        background-color: #ff0000;
+    }
+
+    .image-page-container .stop-btn:active {
+        background-color: #ff3333;
+        transform: scale(0.95);
+    }
+
+    .image-page-container .stop-div:has(.stop-btn:hover)>svg {
+        fill: #ff0000;
+    }
+
+    .image-page-container .stop-div:has(.stop-btn:active)>svg {
+        fill: #ff3333;
+    }
+}
