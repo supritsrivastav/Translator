@@ -8,13 +8,13 @@ import TextPage from './TextPage/TextPage'
 
 export default function App() {
 
-    const { mode } = useMode()
+    const { mode, setMode } = useMode()
 
     return (
         <div id='theme' data-mode={mode ? 'light' : 'dark'}>
             <Router>
                 <Routes>
-                    <Route path='/' element={<Navbar />}>
+                    <Route path='/' element={<Navbar mode={mode} setMode={setMode} />}>
                         <Route index element={<VoicePage />} />
                         <Route path='text' element={<TextPage />} />
                         <Route path='image' element={<ImagePage />} />

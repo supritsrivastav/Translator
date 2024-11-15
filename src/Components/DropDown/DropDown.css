@@ -1,5 +1,7 @@
 .dropdown-container {
     position: relative;
+    --bg-dropdown: light-dark(#cfcfcf, #343434);
+    --border-color: light-dark(#656565, #9a9a9a);
 }
 
 .dropdown-btn {
@@ -7,38 +9,49 @@
     width: 8.5rem;
     font-size: 0.9rem;
     font-weight: 500;
-    background: #fff;
+    background: var(--bg-sec);
     border: none;
-    color: #000;
+    color: currentColor;
     border-radius: 12px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.25s ease, transform 0.25s ease;
 }
 
 .dropdown-btn:hover {
-    background-color: rgba(215, 215, 215, 0.5);
+    background-color: color-mix(in lab, var(--bg-sec), currentColor 11.37%);
+}
+
+.dropdown-btn:active {
+    transform: scale(0.95);
 }
 
 .dropdown {
     position: absolute;
-    max-height: 0;
-    height: fit-content;
     width: 100%;
     bottom: 100%;
     left: 0;
-    z-index: 1;
-    background-color: #ededed;
+    display: grid;
+    grid-template-rows: 0fr;
+    background-color: light-dark(var(--bg-pri), var(--bg-sec));
+    box-shadow: 0 -5px 30px light-dark(var(--bg-dropdown), var(--bg-pri));
     border-radius: 6.5px;
-    box-shadow: 0 5px 30px #cfcfcf;
-    margin-bottom: 0.25rem;
+    z-index: 1;
     overflow: hidden;
-    transition: max-height 0.25s ease;
+    margin-bottom: 0.25rem;
+    transition: grid-template-rows 0.25s ease-in-out;
 }
 
 .dropdown.open {
-    max-height: min(50svh, calc(3rem * var(--max-height-value)));
+    grid-template-rows: 1fr;
+}
+
+.dropdown-list {
+    max-height: 50svh;
+    width: 100%;
+    height: fit-content;
     overflow: scroll;
 }
 
@@ -57,12 +70,24 @@
 }
 
 .dropdown-wrapper label:not(:last-child) p {
-    border-bottom: 1px solid #656565;
+    border-bottom: 1px solid var(--border-color);
 }
 
+.dropdown-wrapper label:has(input[data-checked="checked"]) p,
 .dropdown-wrapper label p:hover {
-    border-radius: 3.5px;
-    background-color: #cfcfcf;
+    background-color: var(--bg-dropdown);
+}
+
+.dropdown-wrapper label:has(input[data-checked="checked"]):first-child p,
+.dropdown-wrapper label:first-child p:hover {
+    border-top-left-radius: 3.5px;
+    border-top-right-radius: 3.5px;
+}
+
+.dropdown-wrapper label:has(input[data-checked="checked"]):last-child p,
+.dropdown-wrapper label:last-child p:hover {
+    border-bottom-left-radius: 3.5px;
+    border-bottom-right-radius: 3.5px;
 }
 
 .dropdown-wrapper label input {
@@ -71,11 +96,12 @@
 
 @media (pointer: coarse) {
     .dropdown-btn:hover {
-        background-color: transparent;
+        background-color: var(--bg-sec);
     }
 
     .dropdown-btn:active {
-        background-color: rgba(215, 215, 215, 0.5);
+        background-color: color-mix(in lab, var(--bg-sec), currentColor 11.37%);
+        transform: scale(0.95);
     }
 
     .dropdown-wrapper label p:hover {
@@ -83,6 +109,6 @@
     }
 
     .dropdown-wrapper label p:active {
-        background-color: #cfcfcf;
+        background-color: var(--bg-dropdown);
     }
 }

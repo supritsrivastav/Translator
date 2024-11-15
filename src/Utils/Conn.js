@@ -1,29 +1,28 @@
 
-export default async function handleTranslate(textToTranslate, targetLanguage) {
-    const response = await fetch('http://192.168.102.2:3001/translate', {
+export default async function handleTranslate(textToTranslate, targetLanguage, controller) {
+    const response = await fetch(process.env.REACT_APP_SERVER_TRANSLATE, {
         method: 'POST',
+        mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             text: textToTranslate,
             targetLanguage: targetLanguage
-        })
+        }),
+        signal: controller.signal
     })
 
     const data = await response.json()
     return data.translation
 }
 
-export async function handleUpload(file) {
+export async function handleUpload(file, controller) {
     const formData = new FormData()
     formData.append('image', file)
-    try {
-        const response = await fetch('http://192.168.102.2:3001/ocr', { method: 'POST', body: formData, })
-        const data = await response.json()
-        return data.text
-    }
-    catch (error) {
-        console.error('Error performing OCR:', error)
-    }
+    const response = await fetch(process.env.REACT_APP_SERVER_OCR, {
+        method: 'POST', mode: 'cors', body: formData, signal: controller.signal
+    })
+    const data = await response.json()
+    return data.text
 }

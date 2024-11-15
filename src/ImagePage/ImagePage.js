@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import handleTranslate, { handleUpload } from '../Utils/Conn'
+import imageCompression from 'browser-image-compression'
+import useVoices from '../Utils/Voices'
 import { languages } from '../Db/Languages'
 import DropDown from '../Components/DropDown/DropDown'
 import { BiImages } from "react-icons/bi"
-import { FaStop } from "react-icons/fa6"
 import { BsFillPatchExclamationFill } from "react-icons/bs"
+import { FaStop } from "react-icons/fa6"
 import { HiOutlineSpeakerWave } from "react-icons/hi2"
 import { MdOutlineContentCopy } from "react-icons/md"
 import './ImagePage.css'
 
 export default function ImagePage() {
     const [file, setFile] = useState(null)
-    const [lang, setLang] = useState(languages[0].code)
-    const [translatedText, setTranslatedText] = useState('Translated text will appear here')
+    const [translatedText, setTranslatedText] = useState('')
     const [processing, setProcessing] = useState(false)
+    const [speaking, setSpeaking] = useState(false)
+    const { lang2, setLang2, selectedVoice2 } = useContext(useVoices)
+    const controller = new AbortController()
 
     function handleFileChange(event) {
         setFile(event.target.files[0])
@@ -21,33 +25,50 @@ export default function ImagePage() {
 
     useEffect(() => {
         if (file) {
-            try {
-                setProcessing(true)
-                handleUpload(file).then(text => {
-                    handleTranslate(text, lang).then(resText => {
+            setProcessing(true)
+            const options = { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true, signal: controller.signal }
+            imageCompression(file, options).then(compressedFile => handleUpload(compressedFile, controller)
+                .then(text => {
+                    handleTranslate(text, lang2, controller).then(resText => {
                         setTranslatedText(resText)
                         setProcessing(false)
+                    }).catch(error => {
+                        if (error.name === 'AbortError') console.log('Aborted')
+                        else console.log(error.name)
                     })
+                }).catch(error => {
+                    if (error.name === 'AbortError') console.log('Aborted')
+                    else console.log(error.name)
                 })
-            } catch (error) {
-                console.error(error)
-            }
+            ).catch(error => {
+                if (error.name === 'AbortError') console.log('Aborted')
+                else console.log(error.name)
+            })
         }
-    }, [file, lang])
+        return () => controller.abort()
+    }, [file, lang2])
 
     const languageOptions = languages.map(({ code, name }) => ({ text: name, value: code }))
 
     function stopProcessing() {
         setFile(null)
+        controller.abort()
         setProcessing(false)
     }
 
-    function handleSpeak(e) {
+    function handleSpeak() {
+        if (!translatedText) return
         const utterance = new SpeechSynthesisUtterance(translatedText)
-        utterance.lang = lang
+        utterance.lang = lang2
+        if (selectedVoice2) utterance.voice = selectedVoice2
         window.speechSynthesis.speak(utterance)
-        utterance.onstart = () => e.target.classList.add('speaking')
-        utterance.onend = () => e.target.classList.remove('speaking')
+        utterance.onstart = () => setSpeaking(true)
+        utterance.onend = () => setSpeaking(false)
+    }
+
+    function stopSpeak() {
+        window.speechSynthesis.cancel()
+        setSpeaking(false)
     }
 
     function handleCopy() {
@@ -59,17 +80,17 @@ export default function ImagePage() {
             {processing ?
                 <div className='stop-div'>
                     <BsFillPatchExclamationFill />
-                    <button className='stop-btn' onClick={stopProcessing}><FaStop /></button>
+                    <button type='button' className='stop-btn' onClick={stopProcessing}><FaStop /></button>
                 </div> :
                 <label>
                     <BiImages />
-                    <input type="file" onChange={handleFileChange} />
+                    <input type="file" onChange={handleFileChange} accept='image/jpeg, image/png' />
                 </label>}
-            <DropDown items={languageOptions} selected={lang} setSelected={setLang} name='lang' classname='image-lang' />
+            <DropDown items={languageOptions} selected={lang2} setSelected={setLang2} name='lang' classname='image-lang' />
             <div className='translate-textbox'>
-                <div>{translatedText}</div>
-                <HiOutlineSpeakerWave onClick={handleSpeak} />
+                <p>{translatedText}</p>
                 <MdOutlineContentCopy onClick={handleCopy} />
+                {speaking ? <span onClick={stopSpeak}><FaStop /></span> : <HiOutlineSpeakerWave onClick={handleSpeak} />}
             </div>
         </div>
     )

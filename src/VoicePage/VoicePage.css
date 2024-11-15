@@ -10,8 +10,8 @@
 }
 
 .voice-page-container .texts-container {
-    width: min(24rem, 100%);
-    height: 24rem;
+    width: 100%;
+    height: 1rem;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -21,51 +21,10 @@
     overflow: scroll;
 }
 
-.voice-page-container .texts-container .text-div:first-child {
-    margin-top: auto;
-}
-
-.voice-page-container .texts-container .text-div {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 1rem;
-    border-radius: 15px;
-    background-color: #fff;
-}
-
-.voice-page-container .texts-container .text-div p {
-    font-size: 1.05rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    gap: 0.5rem;
-    cursor: pointer;
-}
-
-.voice-page-container .texts-container .text-div p.speaking svg {
-    background-color: #000;
-    color: #fff;
-    border-radius: 50%;
-    height: 1.5rem;
-    width: 1.5rem;
-    pointer-events: none;
-}
-
-.voice-page-container .texts-container .text-div hr {
-    width: 80%;
-    border: none;
-    border-bottom: 2px solid #000;
-}
-
 .voice-page-container .bottom-container {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 0.75fr 1fr;
+    grid-template-columns: auto auto auto;
     justify-content: space-between;
     justify-items: center;
     align-items: center;
@@ -84,12 +43,17 @@
     align-items: center;
     justify-content: center;
     font-size: 1rem;
-    background-color: black;
-    color: white;
+    background-color: var(--bg-inv);
+    color: var(--bg-sec);
     border: none;
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.voice-page-container button.cancel {
+    background-color: #ff0000;
+    color: #fff;
 }
 
 .voice-page-container button.switch-btn {
@@ -99,20 +63,17 @@
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    color: #000;
     border: none;
     outline: none;
     font-size: 1.25rem;
     cursor: pointer;
+    transition: transform 0.25s ease;
 }
 
 .voice-page-container button.record-btn:hover {
-    background-color: #353535;
+    background-color: color-mix(in lab, var(--bg-inv), currentColor 15%);
 }
 
-.voice-page-container button.cancel {
-    background-color: #ff0000;
-}
 
 .voice-page-container button.cancel:hover {
     background-color: #ff3333;
@@ -122,39 +83,13 @@
     transform: scale(0.95);
 }
 
-.voice-sheet-btn {
-    position: absolute;
-    top: 1rem;
-    right: 0;
-    height: 2.75rem;
-    width: 2.75rem;
-    background-color: #000;
-    color: #fff;
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    z-index: 1;
-    cursor: pointer;
-    transition: background-color 0.25s ease, transform 0.25s ease;
-}
-
-.voice-sheet-btn:hover {
-    background-color: #353535;
-}
-
-.voice-sheet-btn:active {
-    transform: scale(0.95);
-}
-
 @media (pointer: coarse) {
     .voice-page-container button.record-btn:hover {
-        background-color: #000;
+        background-color: var(--bg-inv);
     }
 
     .voice-page-container button.record-btn:active {
-        background-color: #353535;
+        background-color: color-mix(in lab, var(--bg-inv), currentColor 15%);
         transform: scale(0.95);
     }
 
@@ -164,15 +99,6 @@
 
     .voice-page-container button.cancel:active {
         background-color: #ff3333;
-        transform: scale(0.95);
-    }
-
-    .voice-sheet-btn:hover {
-        background-color: #000;
-    }
-
-    .voice-sheet-btn:active {
-        background-color: #353535;
         transform: scale(0.95);
     }
 }

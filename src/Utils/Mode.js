@@ -12,5 +12,7 @@ export default function useMode() {
         return () => check.removeEventListener('change', change)
     }, [])
 
+    document.querySelector('meta[name="theme-color"]').content = mode ? '#ededed' : '#121212'
+
     return { mode, setMode }
 }

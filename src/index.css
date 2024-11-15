@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 html {
-  color-scheme: light;
+  color-scheme: light dark;
 }
 
 * {
@@ -14,18 +14,35 @@ html {
 
 body {
   overflow-x: hidden;
-  background-color: #ededed;
+  background-color: var(--bg-pri);
 }
 
 :root {
   font-size: clamp(14px, 11px + 0.3333vw, 16px);
 }
 
+:root:has(#theme[data-mode=light]) {
+  color-scheme: light;
+  --bg-pri: #ededed;
+  --bg-sec: #fff;
+  --bg-inv: #121212
+}
+
+:root:has(#theme[data-mode=dark]) {
+  color-scheme: dark;
+  --bg-pri: #121212;
+  --bg-sec: #242424;
+  --bg-inv: #ededed;
+}
+
 #theme {
+  margin-inline: auto;
+  width: min(30rem, 100%);
   height: 100svh;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
+  gap: 2rem;
 }

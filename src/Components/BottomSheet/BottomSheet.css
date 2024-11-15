@@ -1,19 +1,20 @@
 .bottom-sheet {
     position: fixed;
-    width: 100%;
+    width: min(30rem, 100%);
     bottom: 0;
-    left: 0;
+    left: 50%;
     z-index: 999;
+    transform: translateX(-50%);
     padding: 2.5rem 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
     gap: 1.5rem;
-    background-color: #ededed;
+    background-color: var(--bg-pri);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    box-shadow: 0 -5px 30px #cfcfcf;
+    box-shadow: 0 -5px 30px light-dark(#cfcfcf, var(--bg-pri));
     transition: bottom 0.5s ease-in-out;
 }
 
@@ -37,42 +38,67 @@
 
 .sheet-dropdown {
     width: 100%;
-    flex-grow: 1;
 }
 
 .sheet-dropdown .dropdown-btn {
     width: 100%;
+    height: auto;
+    padding: 0.8rem;
 }
 
+.theme-btn,
 .close-btn {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     height: 3.25rem;
     width: 3.25rem;
-    background-color: #000;
-    font-size: 2rem;
-    color: #eaeaea;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 20px;
+    background-color: var(--bg-inv);
+    font-size: 2rem;
+    color: var(--bg-sec);
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
     z-index: 1;
     cursor: pointer;
-    transition: box-shadow 0.25s ease;
+    transition: background-color 0.25s ease, transform 0.25s ease;
 }
 
+.theme-btn svg {
+    pointer-events: none;
+}
+
+.close-btn {
+    right: 0;
+    left: unset;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.theme-btn:hover,
 .close-btn:hover {
-    box-shadow: -1px 1px 10px #000;
+    background-color: color-mix(in lab, var(--bg-inv), currentColor 15%);
+}
+
+.theme-btn:active,
+.close-btn:active {
+    transform: scale(0.95);
 }
 
 @media (pointer: coarse) {
+
+    .theme-btn:hover,
     .close-btn:hover {
-        box-shadow: none;
+        background-color: var(--bg-inv);
     }
 
+    .theme-btn:active,
     .close-btn:active {
-        box-shadow: -1px 1px 10px #000;
+        background-color: color-mix(in lab, var(--bg-inv), currentColor 15%);
+        transform: scale(0.95);
     }
 }

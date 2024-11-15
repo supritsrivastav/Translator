@@ -33,9 +33,11 @@ export default function DropDown({ items, selected, setSelected, name, classname
             <button type='button' className='dropdown-btn' onClick={openClose} ref={el => ref.current[0] = el}>
                 {selectedText}
             </button>
-            <div className='dropdown' ref={el => ref.current[1] = el} style={{ '--max-height-value': `${items.length}` }}>
-                <div className='dropdown-wrapper'>
-                    {dropDownElems}
+            <div ref={el => ref.current[1] = el} className='dropdown'>
+                <div className='dropdown-list' >
+                    <div className='dropdown-wrapper'>
+                        {dropDownElems}
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,7 +48,8 @@ function DropDownItem({ text, name, handleChange, selected, value }) {
     return (
         <label>
             <p>{text}</p>
-            <input type='radio' name={name} value={value} checked={selected === value} onChange={handleChange} />
+            <input type='radio' name={name} value={value} data-checked={value === selected ? 'checked' : ''}
+                onChange={handleChange} />
         </label>
     )
 }
