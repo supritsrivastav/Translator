@@ -1,0 +1,46 @@
+.error-div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.error-div h1 {
+    text-align: center;
+}
+
+.error-div button {
+    padding: 1rem 2rem;
+    background-color: var(--bg-inv);
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    color: var(--bg-pri);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.error-div button:hover {
+    background-color: color-mix(in lab, var(--bg-inv), currentColor 15%);
+}
+
+.error-div button:active {
+    transform: scale(0.95);
+}
+
+@media (pointer: coarse) {
+
+    .error-div button:hover {
+        background-color: var(--bg-inv);
+    }
+
+    .error-div button:active {
+        background-color: color-mix(in lab, var(--bg-inv), currentColor 15%);
+        transform: scale(0.95);
+    }
+}

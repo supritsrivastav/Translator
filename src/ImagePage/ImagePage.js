@@ -34,15 +34,15 @@ export default function ImagePage() {
                         setProcessing(false)
                     }).catch(error => {
                         if (error.name === 'AbortError') console.log('Aborted')
-                        else console.log(error.name)
+                        else throw error
                     })
                 }).catch(error => {
                     if (error.name === 'AbortError') console.log('Aborted')
-                    else console.log(error.name)
+                    else throw error
                 })
             ).catch(error => {
                 if (error.name === 'AbortError') console.log('Aborted')
-                else console.log(error.name)
+                else throw error
             })
         }
         return () => controller.abort()

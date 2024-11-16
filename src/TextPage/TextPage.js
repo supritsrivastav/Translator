@@ -23,7 +23,7 @@ export default function TextPage() {
         if (text1) handleTranslate(text1, lang2, controller).then(resText => setText2(resText))
             .catch(error => {
                 if (error.name === 'AbortError') console.log('Aborted')
-                else console.error(error)
+                else throw error
             })
         return () => controller.abort()
     }, [text1, lang1, lang2])

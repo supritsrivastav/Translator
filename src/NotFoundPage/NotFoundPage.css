@@ -1,0 +1,46 @@
+.notfound-div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.notfound-div h1 {
+    text-align: center;
+}
+
+.notfound-div a {
+    padding: 1rem 2rem;
+    background-color: var(--bg-inv);
+    border-radius: 15px;
+    border: none;
+    color: var(--bg-pri);
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.notfound-div a:hover {
+    background-color: color-mix(in lab, var(--bg-inv), currentColor 15%);
+}
+
+.notfound-div a:active {
+    transform: scale(0.95);
+}
+
+@media (pointer: coarse) {
+
+    .notfound-div a:hover {
+        background-color: var(--bg-inv);
+    }
+
+    .notfound-div a:active {
+        background-color: color-mix(in lab, var(--bg-inv), currentColor 15%);
+        transform: scale(0.95);
+    }
+}

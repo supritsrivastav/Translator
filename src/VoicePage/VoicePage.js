@@ -50,8 +50,10 @@ export default function VoicePage() {
                     }, 500)
                 }).catch(error => {
                     if (error.name === 'AbortError') console.log('Aborted')
-                    else console.error(error)
-                    stop()
+                    else {
+                        stop()
+                        throw error
+                    }
                 })
             }
         }
@@ -79,8 +81,10 @@ export default function VoicePage() {
                     }, 500)
                 }).catch(error => {
                     if (error.name === 'AbortError') console.log('Aborted')
-                    else console.error(error)
-                    stop()
+                    else {
+                        stop()
+                        throw error
+                    }
                 })
             }
         }
