@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import DropDown from '../DropDown/DropDown'
 import { languages } from '../../Db/Languages'
 import { IoClose } from "react-icons/io5"
@@ -7,11 +7,11 @@ import './BottomSheet.css'
 
 export default function BottomSheet({ lang1, lang2, voices1, voices2, setSelected1, setSelected2, refEl, mode, setMode }) {
 
-    const languageTitle1 = languages.find(({ code }) => code === lang1).name
-    const languageTitle2 = languages.find(({ code }) => code === lang2).name
+    const languageTitle1 = useMemo(() => languages.find(({ code }) => code === lang1).name, [lang1])
+    const languageTitle2 = useMemo(() => languages.find(({ code }) => code === lang2).name, [lang2])
 
-    const voiceNames1 = voices1.map(voice => ({ text: voice.name, value: voice.voiceURI }))
-    const voiceNames2 = voices2.map(voice => ({ text: voice.name, value: voice.voiceURI }))
+    const voiceNames1 = useMemo(() => voices1.map(voice => ({ text: voice.name, value: voice.voiceURI })), [voices1])
+    const voiceNames2 = useMemo(() => voices2.map(voice => ({ text: voice.name, value: voice.voiceURI })), [voices2])
 
     const [selectedVoice1, setSelectedVoice1] = useState('')
     const [selectedVoice2, setSelectedVoice2] = useState('')
@@ -43,6 +43,7 @@ export default function BottomSheet({ lang1, lang2, voices1, voices2, setSelecte
 
     function switchMode() {
         setMode(!mode)
+        localStorage.setItem('mode', !mode)
     }
 
     return (

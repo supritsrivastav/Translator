@@ -4,8 +4,8 @@ const useVoices = createContext()
 
 export function VoicesProvider({ children }) {
 
-    const [lang1, setLang1] = useState('en')
-    const [lang2, setLang2] = useState('hi')
+    const [lang1, setLang1] = useState(localStorage.getItem('lang1') || 'en')
+    const [lang2, setLang2] = useState(localStorage.getItem('lang2') || 'es')
     const [voices, setVoices] = useState([])
     const [selectedVoice1, setSelectedVoice1] = useState(null)
     const [selectedVoice2, setSelectedVoice2] = useState(null)
@@ -23,6 +23,8 @@ export function VoicesProvider({ children }) {
     useEffect(() => {
         if (voices1.length) setSelectedVoice1(voices1[0])
         if (voices2.length) setSelectedVoice2(voices2[0])
+        if (localStorage.getItem('lang1') !== lang1) localStorage.setItem('lang1', lang1)
+        if (localStorage.getItem('lang2') !== lang2) localStorage.setItem('lang2', lang2)
     }, [lang1, lang2])
 
     return (

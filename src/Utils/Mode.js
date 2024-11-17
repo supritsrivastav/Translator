@@ -12,6 +12,10 @@ export default function useMode() {
         return () => check.removeEventListener('change', change)
     }, [])
 
+    useEffect(() => {
+        if (localStorage.getItem('mode')) setMode(JSON.parse(localStorage.getItem('mode')))
+    }, [])
+
     document.querySelector('meta[name="theme-color"]').content = mode ? '#ededed' : '#121212'
 
     return { mode, setMode }
