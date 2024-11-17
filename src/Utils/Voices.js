@@ -5,7 +5,7 @@ const useVoices = createContext()
 export function VoicesProvider({ children }) {
 
     const [lang1, setLang1] = useState(localStorage.getItem('lang1') || 'en')
-    const [lang2, setLang2] = useState(localStorage.getItem('lang2') || 'es')
+    const [lang2, setLang2] = useState(localStorage.getItem('lang2') || 'hi')
     const [voices, setVoices] = useState([])
     const [selectedVoice1, setSelectedVoice1] = useState(null)
     const [selectedVoice2, setSelectedVoice2] = useState(null)
