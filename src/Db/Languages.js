@@ -136,7 +136,7 @@ export const languages = [
 	},
 	{
 		code: 'lb',
-		name: 'Luxembourgish',
+		name: 'Luxembourg',
 		placeholder: 'Den Text erschéngt hei'
 	},
 	{
