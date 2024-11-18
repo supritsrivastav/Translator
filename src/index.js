@@ -5,4 +5,4 @@ import { VoicesProvider } from './Utils/Voices'
 import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<VoicesProvider><App /></VoicesProvider>)
+root.render(<VoicesProvider><App /></VoicesProvider>) // voices context provider
