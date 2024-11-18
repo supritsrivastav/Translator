@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import './DropDown.css'
 
 export default function DropDown({ items, selected, setSelected, name, classname }) {
@@ -28,16 +28,19 @@ export default function DropDown({ items, selected, setSelected, name, classname
 
     const selectedText = useMemo(() => items.find(item => item?.value === selected)?.text, [selected, items])
 
+    useLayoutEffect(() => {
+        const height = ref.current[2].clientHeight
+        ref.current[1].style.setProperty('--height-value', `${height}px`)
+    }, [items])
+
     return (
         <div className={`dropdown-container ${classname ? classname : ''}`}>
             <button type='button' className='dropdown-btn' onClick={openClose} ref={el => ref.current[0] = el}>
                 {selectedText}
             </button>
             <div ref={el => ref.current[1] = el} className='dropdown'>
-                <div className='dropdown-list' >
-                    <div className='dropdown-wrapper'>
-                        {dropDownElems}
-                    </div>
+                <div className='dropdown-wrapper' ref={el => ref.current[2] = el}>
+                    {dropDownElems}
                 </div>
             </div>
         </div>

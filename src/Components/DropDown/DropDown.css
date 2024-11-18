@@ -30,28 +30,22 @@
 
 .dropdown {
     position: absolute;
+    max-height: 0;
+    height: fit-content;
     width: 100%;
     bottom: 100%;
     left: 0;
-    display: grid;
-    grid-template-rows: 0fr;
     background-color: light-dark(var(--bg-pri), var(--bg-sec));
     box-shadow: 0 -5px 30px light-dark(var(--bg-dropdown), var(--bg-pri));
     border-radius: 6.5px;
     z-index: 1;
     overflow: hidden;
     margin-bottom: 0.25rem;
-    transition: grid-template-rows 0.25s ease-in-out;
+    transition: max-height 0.25s ease-in-out;
 }
 
 .dropdown.open {
-    grid-template-rows: 1fr;
-}
-
-.dropdown-list {
-    max-height: 50svh;
-    width: 100%;
-    height: fit-content;
+    max-height: min(50svh, calc(var(--height-value) + 1rem));
     overflow: scroll;
 }
 
